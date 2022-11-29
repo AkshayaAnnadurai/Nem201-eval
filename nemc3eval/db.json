@@ -1,0 +1,25 @@
+[
+    {
+        "name":"Bitcoin",
+		"decimalDigits": 2,
+		"rounding": 0,
+		"code": "USD",
+		"namePlural": "US dollars"
+    },
+    
+        {
+            "name":"Ethereum",
+            "decimalDigits": 2,
+		"rounding": 0,
+		"code": "USD",
+		"namePlural": "US dollars"
+        },
+        {
+            "name" : "Tether",
+            "decimalDigits": 2,
+            "rounding": 0,
+            "code": "USD",
+            "namePlural": "US dollars"
+        }
+    
+]

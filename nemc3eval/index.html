@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+<h1>Cryptocurrency</h1>
+<h2 id="wallet">
+    Your Wallet Balance: ₹
+</h2>
+<table>
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Code</th>
+        <th>Change</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="currencybody"></tbody>
+</table>
+</div>
+<script src="socket.io/socket.io.min.js"></script>
+<script>
+    const socket=io()
+    const walletBalance = document.getElementById("wallet")
+    const currencyBody = document.getElementById("currencybody")
+    const code = document.createElement("th")
+    code.classList = "code"
+    code.scope="row"
+    code.innerText = currency.code
+    const name=document.createElement("td")
+    name.innerText = currency.name
+    const price=document.createElement("td")
+    value.classList = "value"
+    value.innerText = currency.value.toFixed(2)
+   
+    
+    const change=document.createElement("td")
+    change.innerText = currency.changeBy.toFixed(2)
+   
+    const action=document.createElement("td")
+    const btn = document.createElement("button");
+		
+	btn.innerText = "Buy";
+	action.append(btn);
+
+    tr.append( name, price, code, change, action);
+	return tr;
+
+    function createTableRow(currency) {
+				const tr = document.createElement("tr");
+				if (currency.changeBy < 0) {
+					tr.classList = "text-danger";
+				} else if (currency.changeBy > 0) {
+					tr.classList = "text-success";
+				}
+    socket.on("values", ({ currencies, userWalletBalance }) => {
+				currencybody.innerHTML = null;
+				
+				walletBalanceTag.innerText = userWalletBalance.toFixed(2);
+				currencies.forEach((currency) => {
+					currencybody.append(createTableRow(currency));
+				});
+			});
+
+            currencybody.addEventListener("click", (e) => {
+				
+				if (e.target.innerText.toLowerCase() === "buy") {
+					const tr = e.target.parentNode.parentNode;
+					const code = tr.getElementsByClassName("code")[0];
+					const value = tr.getElementsByClassName("value")[0];
+					
+					socket.emit("buy", { code: code.innerText });
+					console.log(code.innerText);
+				}
+			});
+
+			socket.on("success", ({ message }) => {
+				alert(message);
+			});
+			socket.on("failure", ({ message }) => {
+				alert(message);
+			});
+    
+    
+
+
+
+
+</script>
+</body>
+</html>
